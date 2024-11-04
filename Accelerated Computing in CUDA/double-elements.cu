@@ -11,7 +11,7 @@
 __global__ void initializeElementsTo(int initialValue, int *a, int N)
 {
   int i = threadIdx.x + blockIdx.x * blockDim.x;
-  // if(i < N)
+  if(i < N)
     a[i] = initialValue;
 }
 
