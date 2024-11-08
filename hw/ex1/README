@@ -1,0 +1,5 @@
+build: make
+run with different parameters ,1000 is the parameter: make run arg=1000
+clean: make clean
+
+change file to compile, you need to modify the SRC in Makefiel
