@@ -1,0 +1,4 @@
+The command of compile and profile
+
+1. run and compile: nvcc src.cu -o dst -run
+2. profile with nvidia nsight compute: ncu dst.exe
