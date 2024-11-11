@@ -73,6 +73,8 @@ int main(int argc, char **argv)
 	QueryPerformanceCounter(&start);
 	vecAdd<<<number_of_blocks, threads_per_block>>>(deviceInput1, deviceInput2, deviceOutput, inputLength);
 	QueryPerformanceCounter(&end);
+	cudaError_t syncErr = cudaGetLastError();
+	if (syncErr != cudaSuccess) printf("Error: %s\n", cudaGetErrorString(syncErr));		// in case of input lenth over the max of number_of_blocks
 	elapsedTime = (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
 	printf("CUDA kernel: %f seconds\n", elapsedTime);
 

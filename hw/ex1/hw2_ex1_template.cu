@@ -75,7 +75,10 @@ int main(int argc, char **argv)
 	start_time = get_time_in_seconds();
 	vecAdd<<<number_of_blocks, threads_per_block>>>(deviceInput1, deviceInput2, deviceOutput, inputLength);
 	end_time = get_time_in_seconds();
-	printf("CUDA kernel: %f seconds\n", end_time - start_time);
+	cudaError_t syncErr = cudaGetLastError();
+	if (syncErr != cudaSuccess) printf("Error: %s\n", cudaGetErrorString(syncErr));		// in case of  input lenth over the max of number_of_blocks 
+	printf("CUDA kernel: %f seconds\n", end_time - start_time);							// use stride in device
+
 
 	//@@ Copy the GPU memory back to the CPU here
 	start_time = get_time_in_seconds();
