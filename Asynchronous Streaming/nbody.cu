@@ -20,6 +20,16 @@ typedef struct
  * Calculate the gravitational impact of all bodies in the system
  * on all others.
  */
+__global__ void updatePosition(Body*p, float dt, int n)
+{
+  int i = threadIdx.x + blockDim.x * blockIdx.x; 
+  if(i < n)
+    { // integrate position
+      p[i].x += p[i].vx * dt;
+      p[i].y += p[i].vy * dt;
+      p[i].z += p[i].vz * dt;
+    }
+}
 
 __global__ void bodyForce(Body *p, float dt, int n)
 {
@@ -52,6 +62,11 @@ __global__ void bodyForce(Body *p, float dt, int n)
 
 int main(const int argc, const char **argv)
 {
+  int deviceId;
+  int numberOfSMs;
+
+  cudaGetDevice(&deviceId);
+  cudaDeviceGetAttribute(&numberOfSMs, cudaDevAttrMultiProcessorCount, deviceId);
 
   // The assessment will test against both 2<11 and 2<15.
   // Feel free to pass the command line argument 15 when you generate ./nbody report files
@@ -90,7 +105,7 @@ int main(const int argc, const char **argv)
   cudaMallocManaged(&buf, bytes);
 
   Body *p = (Body *)buf;
-
+  cudaMemPrefetchAsync(buf, bytes, cudaCpuDeviceId);
   read_values_from_file(initialized_values, buf, bytes);
 
   double totalTime = 0.0;
@@ -101,7 +116,7 @@ int main(const int argc, const char **argv)
    */
   int threads_per_block = 1024;
   int number_of_blocks = (nBodies - 1) / threads_per_block + 1;
-
+  cudaMemPrefetchAsync(buf, bytes, deviceId);
   for (int iter = 0; iter < nIters; iter++)
   {
     StartTimer();
@@ -112,24 +127,19 @@ int main(const int argc, const char **argv)
      */
 
     bodyForce<<<number_of_blocks, threads_per_block>>>(p, dt, nBodies); // compute interbody forces
-    cudaDeviceSynchronize();
+    
 
     /*
      * This position integration cannot occur until this round of `bodyForce` has completed.
      * Also, the next round of `bodyForce` cannot begin until the integration is complete.
      */
 
-    for (int i = 0; i < nBodies; i++)
-    { // integrate position
-      p[i].x += p[i].vx * dt;
-      p[i].y += p[i].vy * dt;
-      p[i].z += p[i].vz * dt;
-    }
-
+    updatePosition<<< number_of_blocks, threads_per_block>>>(p, dt, nBodies);
+    cudaDeviceSynchronize();  // to make sure the 
     const double tElapsed = GetTimer() / 1000.0;
     totalTime += tElapsed;
   }
-
+  cudaMemPrefetchAsync(buf, bytes, cudaCpuDeviceId);
   double avgTime = totalTime / (double)(nIters);
   float billionsOfOpsPerSecond = 1e-9 * nBodies * nBodies / avgTime;
   write_values_to_file(solution_values, buf, bytes);
