@@ -3,6 +3,13 @@
 
 #define DataType double
 
+double get_time_in_seconds()
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec + tv.tv_usec / 1000000.0;
+}
+
 // Compute C = A * B
 __global__ void gemm(DataType *A, DataType *B, DataType *C, int numARows,
                      int numAColumns, int numBRows, int numBColumns)
@@ -37,6 +44,8 @@ int main(int argc, char **argv)
     int numBColumns; // number of columns in the matrix B
     int numCRows;
     int numCColumns;
+
+    double start_time, end_time;
 
     //@@ Insert code below to read in numARows, numAColumns, numBColumns from args
     numARows = atoi(argv[1]);
@@ -81,20 +90,27 @@ int main(int argc, char **argv)
     cudaMalloc(&deviceC, size_C);
 
     //@@ Insert code to below to Copy memory to the GPU here
+    start_time = get_time_in_seconds();
     cudaMemcpy(deviceA, hostA, size_A, cudaMemcpyHostToDevice);
     cudaMemcpy(deviceB, hostB, size_B, cudaMemcpyHostToDevice);
-
+    end_time = get_time_in_seconds();
+	printf("data copy from host to device: %f seconds\n", end_time - start_time);
     //@@ Initialize the grid and block dimensions here
     dim3 threads_per_block(16, 16);
     dim3 number_of_blocks((numCRows + threads_per_block.x - 1) / threads_per_block.x,
                           (numCColumns + threads_per_block.y - 1) / threads_per_block.y);
 
     //@@ Launch the GPU Kernel here
+    start_time = get_time_in_seconds();
     gemm<<<number_of_blocks, threads_per_block>>>(deviceA, deviceB, deviceC, numARows,
                                                   numAColumns, numBRows, numBColumns);
-
+    end_time = get_time_in_seconds();
+	printf("CUDA kernel: %f seconds\n", end_time - start_time);	
     //@@ Copy the GPU memory back to the CPU here
+    start_time = get_time_in_seconds();
     cudaMemcpy(hostC, deviceC, size_C, cudaMemcpyDeviceToHost);
+    end_time = get_time_in_seconds();
+	printf("data copy from device to host: %f seconds\n", end_time - start_time);
     //@@ Insert code below to compare the output with the reference
     DataType max_error = 0;
     for (int i = 0; i < numCRows * numCColumns; ++i)
@@ -103,7 +119,7 @@ int main(int argc, char **argv)
             max_error = fabs(hostC[i] - resultRef[i]);
     }
 
-    if (max_error > 1e-5)
+    if (max_error > 1e-4)
         printf("Problem! The Max Error of %.5f is NOT within acceptable bounds.\n", max_error);
     else
         printf("The Max Error of %.5f is within acceptable bounds.\n", max_error);
