@@ -1,0 +1,135 @@
+Input matrix dim (256 x 512) (512 x 1024) (256 x 1024)
+Timing - data copy from host to device. 		Elasped 837 microseconds 
+Timing - CUDA kernel. 		Elasped 10044 microseconds 
+Timing - data copy from device to host. 		Elasped 1404 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 512) (512 x 512) (256 x 512)
+Timing - data copy from host to device. 		Elasped 513 microseconds 
+Timing - CUDA kernel. 		Elasped 228 microseconds 
+Timing - data copy from device to host. 		Elasped 788 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 512) (512 x 256) (256 x 256)
+Timing - data copy from host to device. 		Elasped 420 microseconds 
+Timing - CUDA kernel. 		Elasped 203 microseconds 
+Timing - data copy from device to host. 		Elasped 395 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 256) (256 x 1024) (256 x 1024)
+Timing - data copy from host to device. 		Elasped 394 microseconds 
+Timing - CUDA kernel. 		Elasped 219 microseconds 
+Timing - data copy from device to host. 		Elasped 1408 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 256) (256 x 512) (256 x 512)
+Timing - data copy from host to device. 		Elasped 282 microseconds 
+Timing - CUDA kernel. 		Elasped 209 microseconds 
+Timing - data copy from device to host. 		Elasped 744 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 256) (256 x 256) (256 x 256)
+Timing - data copy from host to device. 		Elasped 210 microseconds 
+Timing - CUDA kernel. 		Elasped 140 microseconds 
+Timing - data copy from device to host. 		Elasped 519 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 128) (128 x 1024) (256 x 1024)
+Timing - data copy from host to device. 		Elasped 259 microseconds 
+Timing - CUDA kernel. 		Elasped 196 microseconds 
+Timing - data copy from device to host. 		Elasped 1347 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 128) (128 x 512) (256 x 512)
+Timing - data copy from host to device. 		Elasped 142 microseconds 
+Timing - CUDA kernel. 		Elasped 135 microseconds 
+Timing - data copy from device to host. 		Elasped 735 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (256 x 128) (128 x 256) (256 x 256)
+Timing - data copy from host to device. 		Elasped 119 microseconds 
+Timing - CUDA kernel. 		Elasped 139 microseconds 
+Timing - data copy from device to host. 		Elasped 380 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 512) (512 x 1024) (128 x 1024)
+Timing - data copy from host to device. 		Elasped 1493 microseconds 
+Timing - CUDA kernel. 		Elasped 238 microseconds 
+Timing - data copy from device to host. 		Elasped 806 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 512) (512 x 512) (128 x 512)
+Timing - data copy from host to device. 		Elasped 399 microseconds 
+Timing - CUDA kernel. 		Elasped 238 microseconds 
+Timing - data copy from device to host. 		Elasped 377 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 512) (512 x 256) (128 x 256)
+Timing - data copy from host to device. 		Elasped 495 microseconds 
+Timing - CUDA kernel. 		Elasped 213 microseconds 
+Timing - data copy from device to host. 		Elasped 238 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 256) (256 x 1024) (128 x 1024)
+Timing - data copy from host to device. 		Elasped 317 microseconds 
+Timing - CUDA kernel. 		Elasped 233 microseconds 
+Timing - data copy from device to host. 		Elasped 912 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 256) (256 x 512) (128 x 512)
+Timing - data copy from host to device. 		Elasped 198 microseconds 
+Timing - CUDA kernel. 		Elasped 203 microseconds 
+Timing - data copy from device to host. 		Elasped 453 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 256) (256 x 256) (128 x 256)
+Timing - data copy from host to device. 		Elasped 154 microseconds 
+Timing - CUDA kernel. 		Elasped 146 microseconds 
+Timing - data copy from device to host. 		Elasped 238 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 128) (128 x 1024) (128 x 1024)
+Timing - data copy from host to device. 		Elasped 165 microseconds 
+Timing - CUDA kernel. 		Elasped 202 microseconds 
+Timing - data copy from device to host. 		Elasped 766 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 128) (128 x 512) (128 x 512)
+Timing - data copy from host to device. 		Elasped 161 microseconds 
+Timing - CUDA kernel. 		Elasped 162 microseconds 
+Timing - data copy from device to host. 		Elasped 387 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (128 x 128) (128 x 256) (128 x 256)
+Timing - data copy from host to device. 		Elasped 89 microseconds 
+Timing - CUDA kernel. 		Elasped 134 microseconds 
+Timing - data copy from device to host. 		Elasped 199 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 512) (512 x 1024) (64 x 1024)
+Timing - data copy from host to device. 		Elasped 661 microseconds 
+Timing - CUDA kernel. 		Elasped 220 microseconds 
+Timing - data copy from device to host. 		Elasped 511 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 512) (512 x 512) (64 x 512)
+Timing - data copy from host to device. 		Elasped 318 microseconds 
+Timing - CUDA kernel. 		Elasped 231 microseconds 
+Timing - data copy from device to host. 		Elasped 221 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 512) (512 x 256) (64 x 256)
+Timing - data copy from host to device. 		Elasped 233 microseconds 
+Timing - CUDA kernel. 		Elasped 197 microseconds 
+Timing - data copy from device to host. 		Elasped 121 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 256) (256 x 1024) (64 x 1024)
+Timing - data copy from host to device. 		Elasped 277 microseconds 
+Timing - CUDA kernel. 		Elasped 246 microseconds 
+Timing - data copy from device to host. 		Elasped 443 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 256) (256 x 512) (64 x 512)
+Timing - data copy from host to device. 		Elasped 154 microseconds 
+Timing - CUDA kernel. 		Elasped 197 microseconds 
+Timing - data copy from device to host. 		Elasped 199 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 256) (256 x 256) (64 x 256)
+Timing - data copy from host to device. 		Elasped 110 microseconds 
+Timing - CUDA kernel. 		Elasped 138 microseconds 
+Timing - data copy from device to host. 		Elasped 112 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 128) (128 x 1024) (64 x 1024)
+Timing - data copy from host to device. 		Elasped 149 microseconds 
+Timing - CUDA kernel. 		Elasped 200 microseconds 
+Timing - data copy from device to host. 		Elasped 384 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 128) (128 x 512) (64 x 512)
+Timing - data copy from host to device. 		Elasped 100 microseconds 
+Timing - CUDA kernel. 		Elasped 129 microseconds 
+Timing - data copy from device to host. 		Elasped 191 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
+Input matrix dim (64 x 128) (128 x 256) (64 x 256)
+Timing - data copy from host to device. 		Elasped 83 microseconds 
+Timing - CUDA kernel. 		Elasped 138 microseconds 
+Timing - data copy from device to host. 		Elasped 116 microseconds 
+The Max Error of 0.00000 is within acceptable bounds.
