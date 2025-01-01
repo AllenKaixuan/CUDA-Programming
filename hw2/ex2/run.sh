@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-params1=(256 128 64)
-params2=(512 256 128)
-params3=(1024 512 256)
+params1=(512 1000 1024)
+params2=(512 1000 1024)
+params3=(512 1000 1024)
 
 
 > output.log

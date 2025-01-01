@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	if (syncErr != cudaSuccess) printf("Error: %s\n", cudaGetErrorString(syncErr));		// in case of  input lenth over the max of number_of_blocks 
 	printf("CUDA kernel: %f seconds\n", end_time - start_time);							// use stride in device
 
-
+	cudaDeviceSynchronize();
 	//@@ Copy the GPU memory back to the CPU here
 	start_time = get_time_in_seconds();
 	cudaMemcpy(hostOutput, deviceOutput, size, cudaMemcpyDeviceToHost);
