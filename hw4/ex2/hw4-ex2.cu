@@ -15,18 +15,21 @@ __global__ void vecAdd(DataType *in1, DataType *in2, DataType *out, int len)
 		out[i] = in1[i] + in2[i];
 }
 
-double get_time_in_seconds()
-{
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec + tv.tv_usec / 1000000.0;
+struct timeval t_start, t_end;
+void cputimer_start(){
+  gettimeofday(&t_start, 0);
+}
+double cputimer_stop(const char* info){
+  gettimeofday(&t_end, 0);
+  double time = (1000000.0*(t_end.tv_sec-t_start.tv_sec) + t_end.tv_usec-t_start.tv_usec);
+  printf("Timing - %s. \t\tElasped %.0f microseconds \n", info, time);
+  return time;
 }
 
 int main(int argc, char **argv)
 {
 
 	int inputLength;
-	double start_time, end_time;
 	DataType *hostInput1;
 	DataType *hostInput2;
 	DataType *hostOutput;
@@ -52,6 +55,11 @@ int main(int argc, char **argv)
 	hostInput2 = (DataType *)malloc(size);
 	hostOutput = (DataType *)malloc(size);
 	resultRef  = (DataType *)malloc(size);
+	// used for streaming version
+	DataType *hostInput1_pinned, *hostInput2_pinned, *hostOutput_pinned;
+	cudaMallocHost(&hostInput1_pinned, size);
+	cudaMallocHost(&hostInput2_pinned, size);
+	cudaMallocHost(&hostOutput_pinned, size);
 
 	//@@ Insert code below to initialize hostInput1 and hostInput2 to random numbers, and create reference result in CPU
 	for (int i = 0; i < inputLength; ++i)
@@ -60,6 +68,11 @@ int main(int argc, char **argv)
 		hostInput2[i] = (DataType)rand() / (DataType)RAND_MAX;
 		resultRef[i] = hostInput1[i] + hostInput2[i];
 	}
+	// used for streaming version
+	for(int i = 0; i < inputLength; i++){
+		hostInput1_pinned[i] = hostInput1[i];
+		hostInput2_pinned[i] = hostInput2[i];
+	}
 
 	//@@ Insert code below to allocate GPU memory here
 	cudaMalloc(&deviceInput1, size);
@@ -67,8 +80,8 @@ int main(int argc, char **argv)
 	cudaMalloc(&deviceOutput, size);
 
 	//non-stream
-	start_time = get_time_in_seconds();
-non-stream
+	cputimer_start();
+	
 	// Host -> Device
 	cudaMemcpy(deviceInput1, hostInput1, size, cudaMemcpyHostToDevice);
 	cudaMemcpy(deviceInput2, hostInput2, size, cudaMemcpyHostToDevice);
@@ -81,9 +94,7 @@ non-stream
 
 	cudaMemcpy(hostOutput, deviceOutput, size, cudaMemcpyDeviceToHost);
 
-	end_time = get_time_in_seconds();
-	double nonStreamTime = end_time - start_time;
-	printf("Non-stream version total time: %f seconds\n", nonStreamTime);
+	double nonStreamTime = cputimer_stop("Non-stream version");
 
 	// check answer
 	double max_error_nonStream = 0;
@@ -106,7 +117,7 @@ non-stream
 		cudaStreamCreate(&streams[i]);
 	}
 
-	start_time = get_time_in_seconds();
+	cputimer_start();
 
 	int totalSegments = (inputLength + S_seg - 1) / S_seg;  
 
@@ -119,13 +130,13 @@ non-stream
 		size_t segmentSize = len * sizeof(DataType);
 
 		cudaMemcpyAsync(deviceInput1 + offset,
-		                hostInput1   + offset,
+		                hostInput1_pinned   + offset,
 		                segmentSize,
 		                cudaMemcpyHostToDevice,
 		                streams[streamIdx]);
 
 		cudaMemcpyAsync(deviceInput2 + offset,
-		                hostInput2   + offset,
+		                hostInput2_pinned   + offset,
 		                segmentSize,
 		                cudaMemcpyHostToDevice,
 		                streams[streamIdx]);
@@ -141,7 +152,7 @@ non-stream
 		    len
 		);
 
-		cudaMemcpyAsync(hostOutput + offset,
+		cudaMemcpyAsync(hostOutput_pinned + offset,
 		                deviceOutput + offset,
 		                segmentSize,
 		                cudaMemcpyDeviceToHost,
@@ -154,15 +165,12 @@ non-stream
 		cudaStreamSynchronize(streams[i]);
 	}
 
-	end_time = get_time_in_seconds();
-	double streamTime = end_time - start_time;
-	printf("Streaming version total time (%d segments, %d streams): %f seconds\n", 
-	       totalSegments, NUM_STREAMS, streamTime);
+	double streamTime = cputimer_stop("Streaming version");
 
 	double max_error_stream = 0;
 	for (int i = 0; i < inputLength; ++i)
 	{
-		double err = fabs(hostOutput[i] - resultRef[i]);
+		double err = fabs(hostOutput_pinned[i] - resultRef[i]);
 		if (err > max_error_stream) {
 			max_error_stream = err;
 		}
@@ -171,8 +179,8 @@ non-stream
 
 
 	printf("\n--- Performance comparison ---\n");
-	printf("Non-stream time      = %f s\n", nonStreamTime);
-	printf("Streaming time       = %f s\n", streamTime);
+	printf("Non-stream time      = %f s\n", nonStreamTime/1000000);
+	printf("Streaming time       = %f s\n", streamTime/1000000);
 	printf("Speedup (non/stream) = %f\n", nonStreamTime / streamTime);
 	printf("------------------------------\n");
 
@@ -187,11 +195,15 @@ non-stream
 	cudaFree(deviceInput2);
 	cudaFree(deviceOutput);
 
+
 	//@@ Free the CPU memory here
 	free(hostInput1);
 	free(hostInput2);
 	free(hostOutput);
 	free(resultRef);
+	cudaFreeHost(hostInput1_pinned);
+	cudaFreeHost(hostInput2_pinned);
+	cudaFreeHost(hostOutput_pinned);
 
 	return 0;
 }

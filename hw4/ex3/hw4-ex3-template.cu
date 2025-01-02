@@ -255,9 +255,18 @@ int main(int argc, char **argv) {
   error = norm;
   //@@ Insert the code to call cublas api to compute the norm of temp
   //@@ This calculation corresponds to: || temp ||
+  cublasCheck(cublasDnrm2(cublasHandle, dimX, temp, 1, &norm));
 
   // Calculate the relative error
   error = error / norm;
+
+  // FILE* outputFile = fopen("output.txt", "a");
+  // if (outputFile == NULL) {
+  //     printf("Error opening file!\n");
+  //     return 1;
+  // }
+  // fprintf(outputFile, "%d %.10f\n", nsteps, error);
+
   printf("The relative error of the approximation is %f\n", error);
 
   //@@ Insert the code to destroy the mat descriptor
