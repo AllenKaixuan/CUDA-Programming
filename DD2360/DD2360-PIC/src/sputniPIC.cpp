@@ -73,7 +73,7 @@ int main(int argc, char **argv){
     
     // Initialization
     initGEM(&param,&grd,&field,&field_aux,part,ids);
-    
+    particle_init_gpu(part, &grd, &param, &field);
     
     // **********************************************************//
     // **** Start the Simulation!  Cycle index start from 1  *** //
@@ -93,7 +93,7 @@ int main(int argc, char **argv){
         // implicit mover
         iMover = cpuSecond(); // start timer for mover
         for (int is=0; is < param.ns; is++)
-            mover_PC(&part[is],&field,&grd,&param);
+            mover_PC_GPU(&part[is],is,&param);
         eMover += (cpuSecond() - iMover); // stop timer for mover
         
         

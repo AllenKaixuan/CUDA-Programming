@@ -42,7 +42,7 @@ struct particles {
     /* drift and thermal velocities for this species */
     FPpart u0, v0, w0;
     FPpart uth, vth, wth;
-    
+    FPpart *partical_flat;
     /** particle arrays: 1D arrays[npmax] */
     FPpart* x; FPpart*  y; FPpart* z; FPpart* u; FPpart* v; FPpart* w;
     /** q must have precision of interpolated quantities: typically double. Not used in mover */
@@ -65,8 +65,11 @@ int mover_PC(struct particles*, struct EMfield*, struct grid*, struct parameters
 void interpP2G(struct particles*, struct interpDensSpecies*, struct grid*);
 
 
-/** GPU mover */
-void mover_PC_gpu(struct particles*, struct EMfield*, struct grid*, struct parameters*);
 
+/** initialize GPU data */
+void particle_init_gpu(struct particles*, struct grid*, struct parameters*, struct EMfield*);
+
+/** particle mover */
+int mover_PC_GPU(struct particles*, int is, struct parameters*);
 
 #endif
