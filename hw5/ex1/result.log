@@ -1,0 +1,88 @@
+Running test for matrix size: 256 256 256
+Input matrix dim (256 x 256) (256 x 256) (256 x 256)
+Timing - CPU. 		Elasped 49534 microseconds 
+Timing - CUDA gemm. 		Elasped 167 microseconds 
+The Max Error of 0.00002 is within acceptable bounds.
+
+------- Testing different tile sizes -------
+CUDA kernel (Tiled) with tile size 8x16
+Timing - . 		Elasped 19 microseconds 
+Max Error = 0.00002 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 16x16
+Timing - . 		Elasped 4 microseconds 
+Max Error = 0.00002 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 32x16
+Timing - . 		Elasped 3 microseconds 
+Max Error = 0.00002 ACCEPTABLE
+
+Running test for matrix size: 512 512 512
+Input matrix dim (512 x 512) (512 x 512) (512 x 512)
+Timing - CPU. 		Elasped 402175 microseconds 
+Timing - CUDA gemm. 		Elasped 205 microseconds 
+The Max Error of 0.00005 is within acceptable bounds.
+
+------- Testing different tile sizes -------
+CUDA kernel (Tiled) with tile size 8x16
+Timing - . 		Elasped 18 microseconds 
+Max Error = 0.00005 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 16x16
+Timing - . 		Elasped 6 microseconds 
+Max Error = 0.00005 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 32x16
+Timing - . 		Elasped 3 microseconds 
+Max Error = 0.00005 ACCEPTABLE
+
+Running test for matrix size: 1024 1024 1024
+Input matrix dim (1024 x 1024) (1024 x 1024) (1024 x 1024)
+Timing - CPU. 		Elasped 4072552 microseconds 
+Timing - CUDA gemm. 		Elasped 249 microseconds 
+The Max Error of 0.00009 is within acceptable bounds.
+
+------- Testing different tile sizes -------
+CUDA kernel (Tiled) with tile size 8x16
+Timing - . 		Elasped 44 microseconds 
+Max Error = 0.00009 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 16x16
+Timing - . 		Elasped 34 microseconds 
+Max Error = 0.00009 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 32x16
+Timing - . 		Elasped 25 microseconds 
+Max Error = 0.00009 ACCEPTABLE
+
+Running test for matrix size: 2048 2048 2048
+Input matrix dim (2048 x 2048) (2048 x 2048) (2048 x 2048)
+Timing - CPU. 		Elasped 40887268 microseconds 
+Timing - CUDA gemm. 		Elasped 251 microseconds 
+The Max Error of 0.00018 is within acceptable bounds.
+
+------- Testing different tile sizes -------
+CUDA kernel (Tiled) with tile size 8x16
+Timing - . 		Elasped 129 microseconds 
+Max Error = 0.00018 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 16x16
+Timing - . 		Elasped 14 microseconds 
+Max Error = 0.00018 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 32x16
+Timing - . 		Elasped 14 microseconds 
+Max Error = 0.00018 ACCEPTABLE
+
+Running test for matrix size: 4096 4096 4096
+Input matrix dim (4096 x 4096) (4096 x 4096) (4096 x 4096)
+Timing - CPU. 		Elasped 301011120 microseconds 
+Timing - CUDA gemm. 		Elasped 426 microseconds 
+The Max Error of 0.00037 is within acceptable bounds.
+
+------- Testing different tile sizes -------
+CUDA kernel (Tiled) with tile size 8x16
+Timing - . 		Elasped 138 microseconds 
+Max Error = 0.00037 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 16x16
+Timing - . 		Elasped 22 microseconds 
+Max Error = 0.00037 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 32x16
+Timing - . 		Elasped 27 microseconds 
+Max Error = 0.00037 ACCEPTABLE
+
+
+
+

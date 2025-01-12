@@ -1,0 +1,21 @@
+==PROF== Connected to process 417746 (/home/xikai/Projects/CUDA-Programming/hw5/ex1)
+==PROF== Profiling "gemm" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "tiled_gemm" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "tiled_gemm" - 2: 0%....50%....100% - 9 passes
+==PROF== Profiling "tiled_gemm" - 3: 0%....50%....100% - 9 passes
+Input matrix dim (1024 x 2048) (2048 x 1024) (1024 x 1024)
+Timing - CUDA gemm. 		Elasped 1781624 microseconds 
+The Max Error of 0.00018 is within acceptable bounds.
+
+------- Testing different tile sizes -------
+CUDA kernel (Tiled) with tile size 8x16
+Timing - . 		Elasped 348345 microseconds 
+Max Error = 0.00018 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 16x16
+Timing - . 		Elasped 284439 microseconds 
+Max Error = 0.00018 ACCEPTABLE
+CUDA kernel (Tiled) with tile size 32x16
+Timing - . 		Elasped 354935 microseconds 
+Max Error = 0.00018 ACCEPTABLE
+==PROF== Disconnected from process 417746
+==PROF== Report: /home/xikai/Projects/CUDA-Programming/hw5/profile.ncu-rep

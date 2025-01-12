@@ -1,0 +1,24 @@
+256 256 256
+cpu     49929
+gemm    167
+wmma    16      Average difference: 0.001126
+
+512 512 512
+cpu     393642
+gemm    205
+wmma    14      Average difference: 0.001656
+
+1024 1024 1024
+cpu     3532150
+gemm    249 
+wmma    19      Average difference: 0.003178
+
+2048 2048 2048
+cpu     34694060
+gemm    251
+wmma    17      Average difference: 0.011441
+
+4096 4096 4096
+cpu     283390609
+gemm    426
+wmma    19      Average difference: 0.051116
